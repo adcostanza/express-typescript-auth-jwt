@@ -21,7 +21,7 @@ See `main.ts` for an example implementation, repeated below:
 To protect a route you may type the following within your async router function:
 
 ```
-if (!auth.isType("admin")) return res.status(403).send("Unauthorized");
+if (!auth.isType("admin")) return res.status(401).send("Unauthorized");
 ```
 
 ## First time setup
