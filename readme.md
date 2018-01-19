@@ -18,7 +18,7 @@ See `main.ts` for an example implementation, repeated below:
     }
     server.start();
 
-To protect a route you may type the following within your async router function:
+The route above is automatically protected by the auth API. You may also check authorization by typing the following into your async router function:
 
 ```
 if (!auth.isType("admin")) return res.status(401).send("Unauthorized");
