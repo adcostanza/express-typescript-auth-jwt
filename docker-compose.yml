@@ -1,0 +1,34 @@
+version: '3.2'
+services:
+  db:
+    build:
+      context: ./
+      dockerfile: Dockerfile-db
+    environment:
+      POSTGRES_PASSWORD: tacos88
+      POSTGRES_USER: postgres
+    networks:
+      - users
+    restart: always
+    ports:
+      - 5432
+  users-api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - users
+    restart: always
+  proxy:
+    restart: always
+    build:
+      context:  ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - users
+    depends_on:
+      - users-api
+networks:
+  users:

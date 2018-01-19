@@ -1,0 +1,47 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "mocha -r ts-node/register tests/*test.ts",
+    "start": "./run.sh",
+    "clean": "npm run env && npm run compose && npm run up",
+    "env": "docker build -t node_env --no-cache --file nodeEnvDockerfile .",
+    "compose": "tsc && docker-compose down -v && docker-compose build --no-cache",
+    "up": "docker-compose up",
+    "db": "docker-compose up -d db"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/es6-promise": "0.0.33",
+    "@types/express": "^4.11.0",
+    "@types/mocha": "^2.2.45",
+    "chai-http": "^3.0.0",
+    "classnames": "^2.2.5",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "jwt-simple": "^0.5.1",
+    "morgan": "^1.9.0",
+    "password-hash": "^1.2.2",
+    "pg": "^7.4.0",
+    "webpac": "^1.0.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
+    "axios": "^0.17.1",
+    "chai": "^4.1.2",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.30.1",
+    "mocha": "^4.1.0",
+    "mocha-typescript": "^1.1.12",
+    "source-map-loader": "^0.2.3",
+    "style-loader": "^0.19.1",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.6.2"
+  }
+}
