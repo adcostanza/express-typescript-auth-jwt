@@ -45,7 +45,7 @@ export class Server {
     this.setupRoute();
     this.auth.claimsRoutes();
     this.userRoutes.allRoutes();
-    this.router.use(async (req: Request, res: Response, next: NextFunction) {
+    this.router.use(async (req: Request, res: Response, next: NextFunction) => {
       res.header('Access-Control-Allow-Origin', 'http://yourIonicServerIp:port');
       res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
       next();
