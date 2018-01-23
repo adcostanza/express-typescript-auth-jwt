@@ -1,5 +1,5 @@
 const express: any = require('express');
-import { Request, Response, Router } from 'express';   // call express
+import { Request, Response, NextFunction, Router } from 'express';   // call express
 // define our app using express
 const bodyParser: any = require('body-parser');
 const morgan = require('morgan'); //log requests to console
@@ -30,7 +30,7 @@ export class Server {
   setupRoute(): void {
     this.router.get('/setup/:key', async (req: Request, res: Response) => {
       //if (!this.auth.isType("admin")) return res.status(401).send("Unauthorized");
-      if(req.params.key != "09809asdf09dfadsf3") return res.json({ action: "setup", success: false, message: "Wrong key" });
+      if (req.params.key != "09809asdf09dfadsf3") return res.json({ action: "setup", success: false, message: "Wrong key" });
       const msg = await this.userStore.setupDB();
       if (msg == null) {
         return res.json({ action: "setup", success: false, message: msg })
@@ -45,6 +45,11 @@ export class Server {
     this.setupRoute();
     this.auth.claimsRoutes();
     this.userRoutes.allRoutes();
+    this.router.use(async (req: Request, res: Response, next: NextFunction) {
+      res.header('Access-Control-Allow-Origin', 'http://yourIonicServerIp:port');
+      res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+      next();
+    });
   }
 
   start(): void {
