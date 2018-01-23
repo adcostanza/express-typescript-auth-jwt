@@ -45,6 +45,7 @@ export class Server {
     this.setupRoute();
     this.auth.claimsRoutes();
     this.userRoutes.allRoutes();
+    //Might be necessary for CORS? Doesn't seem like it, but keep for now.
     // this.router.use(async (req: Request, res: Response, next: NextFunction) => {
     //   res.header('Access-Control-Allow-Origin', '*');
     //   res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
