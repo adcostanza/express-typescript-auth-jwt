@@ -24,6 +24,120 @@ The route above is automatically protected by the auth API. You may also check a
 if (!auth.isType("admin")) return res.status(401).send("Unauthorized");
 ```
 
+## Built in Routes
+### Setup route
+**PURPOSE** Set up first user defined in dockerfile in Database as admin.
+
+**ROUTE** `POST /setup/:key`
+
+The key for setting up the first user can be found and defined inline the setupRoute of Server.ts (09809asdf09dfadsf3 by default):
+
+```
+setupRoute(): void {
+    this.router.get('/setup/:key', async (req: Request, res: Response) => {
+      //if (!this.auth.isType("admin")) return res.status(401).send("Unauthorized");
+      if (req.params.key != "09809asdf09dfadsf3") return res.json({ action: "setup", success: false, message: "Wrong key" });
+      const msg = await this.userStore.setupDB();
+      if (msg == null) {
+        return res.json({ action: "setup", success: false, message: msg })
+      }
+      return res.json({ action: "setup", success: true, message: msg });
+    });
+  }
+  ```
+### Auth Related
+
+**PURPOSE** Login
+
+**ROUTE** `POST /login`
+
+**POST DATA**
+```
+interface AuthInput {
+  username: string;
+  password: string;
+}
+
+```
+
+**RETURNS** `success:boolean`
+
+**AUTH** none
+
+---
+
+**PURPOSE** Lookup current users and admins, get roles
+
+**ROUTE** `GET /claims/:user`
+
+**RETURNS**
+```
+interface AuthClaims {
+  id: number;
+  username: string;
+  role: string;
+  expires: number;
+}
+```
+
+**AUTH** admin
+
+---
+**PURPOSE** Get your own auth claims / roles
+
+**ROUTE** `GET /claims`
+
+**RETURNS** all users AuthClaims
+
+**AUTH** admin
+
+### Users
+
+**PURPOSE** Change user password as Admin
+
+**ROUTE** `POST /passwords/:user`
+
+**POST DATA**
+`password:string`
+
+**RETURNS** `success:boolean`
+
+**AUTH** admin
+
+---
+
+**PURPOSE** Allow a user to change their own password
+
+**ROUTE** `POST /passwords`
+
+**POST DATA**
+`password:string`
+
+**RETURNS** `success:boolean`
+
+**AUTH** none
+
+**PURPOSE** Delete user as admin
+
+`DELETE /users/:user`
+
+**RETURNS** `success:boolean`
+
+**AUTH** admin
+
+---
+
+**PURPOSE** Create user as admin
+
+**ROUTE** `POST /users/:user`
+
+**POST DATA**
+`password:string`
+
+**RETURNS** `success:boolean`
+
+**AUTH** admin
+
 ## First time setup
 
 Type the following to set up the environment for both Docker and NPM:
