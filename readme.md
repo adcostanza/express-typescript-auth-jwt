@@ -45,6 +45,8 @@ setupRoute(): void {
     });
   }
   ```
+---
+
 ### Auth Related
 
 **PURPOSE** Login
@@ -53,7 +55,7 @@ setupRoute(): void {
 
 **POST DATA**
 ```
-interface AuthInput {
+{
   username: string;
   password: string;
 }
@@ -72,7 +74,7 @@ interface AuthInput {
 
 **RETURNS**
 ```
-interface AuthClaims {
+{
   id: number;
   username: string;
   role: string;
@@ -90,6 +92,8 @@ interface AuthClaims {
 **RETURNS** all users AuthClaims
 
 **AUTH** admin
+
+---
 
 ### Users
 
@@ -117,9 +121,11 @@ interface AuthClaims {
 
 **AUTH** none
 
+---
+
 **PURPOSE** Delete user as admin
 
-`DELETE /users/:user`
+**ROUTE** `DELETE /users/:user`
 
 **RETURNS** `success:boolean`
 
