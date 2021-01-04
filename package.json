@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "chai": "^4.1.2",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
